@@ -1,0 +1,78 @@
+---
+title: "Linear Regression: Predicting the survival of Lung Cancers."
+output: html_notebook
+---
+## Goal of the project
+
+The idea behind our model is to predict the overall survival length of adults suffering from a lung cancer. Our model is fed only with clinical data prior to the eventual death of the patient. 
+
+## Mandatory Imports
+
+ggplot: ploting library
+dplyr: to pipe with the `%>%` symbol.
+
+```{r}
+#Import libraries
+library(ggplot2)
+library(dplyr, warn.conflicts = FALSE)
+library(moments)
+
+# Import the data
+cancers = read.csv("cancer.csv", sep=',')
+cancers = na.omit(cancers)
+#cancers$sex = factor(cancers$sex, labels=c("Male", "Female"))
+#cancers$status = factor(cancers$status)
+```
+## Descriptive analysis
+### Means
+```{r}
+summarise_all(cancers, funs(mean))
+```
+### Standard deviation
+```{r}
+summarise_all(cancers, funs(sd))
+```
+
+### Skewness
+```{r}
+summarise_all(cancers, funs(skewness))
+```
+### Kurtosis
+
+```{r}
+summarise_all(cancers, funs(kurtosis))
+```
+
+### Box plots
+
+```{r}
+ggplot(stack(cancers), aes(x = ind, y = values)) + geom_boxplot()
+ggplot(stack(cancers[c("inst", "status", "age", "sex", "ph.ecog", "ph.karno", "pat.karno", "wt.loss")]), aes(x=ind, y=values)) + geom_boxplot()
+ggplot(stack(cancers[c("status", "sex", "ph.ecog")]), aes(x=ind, y=values)) + geom_boxplot()
+```
+
+## Exploratory Data Analysis
+
+```{r}
+ggplot(cancers, aes(y=time, x=ph.ecog)) + geom_point(alpha=0.2) + geom_smooth(method='lm') + scale_y_log10()
+```
+```{r}
+ggplot(cancers, aes(y=time, x=pat.karno)) + geom_point(alpha=0.2) + geom_smooth(method='lm') + scale_y_log10()
+
+cancers %>%
+  summarize(
+    N= n(),
+    r=cor(log(time), pat.karno)
+  )
+```
+```{r}
+ggplot(cancers, aes(y=time, x=meal.cal)) + geom_point() + geom_smooth(method='lm') + scale_y_log10()
+```
+```{r}
+ggplot(cancers, aes(y=time, x=wt.loss, col=sex)) + geom_point() + geom_smooth(method='lm') + scale_y_log10()
+```
+
+```{r}
+
+```
+
