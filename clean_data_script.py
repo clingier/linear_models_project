@@ -35,7 +35,7 @@ df['triple_neg'] = np.where(df.HR_HER2_CATEGORY == 3, 1, 0)
 #Rename the columns
 
 df.rename(
-    columns={
+    columns={  
         'ERpos':'er', 
         'PgRpos':'pr',
         'HR Pos': 'hr',
@@ -53,6 +53,12 @@ df.rename(
 df.drop(['DataExtractDt', 'Laterality', 'SUBJECTID', 'HR_HER2_STATUS'], 
     axis=1,
     inplace=True)
+
+df.drop(['caucasian', 'af_american', 'pac_islander', 'asian'], axis=1, inplace=True)
+
+df['hr_not_er'] = df['hr'] - df['er']
+
+df.drop('hr', axis=1, inplace=True)
 
 df.dropna(inplace=True)
 
