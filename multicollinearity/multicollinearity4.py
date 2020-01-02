@@ -11,14 +11,14 @@ df = pd.read_csv('clean_data.csv', index_col=[0])
 
 X = df[[
     "age",
-    "her2",
-    "bilateral",
+    "er",
+    "mri_baseline",
     "mri_interreg",
     "rcb",
-    "her2_pos",
-    "triple_neg",
+    "hr_p_her2_neg",
     "hr_not_er",
-    "del_dac"
+    "del_dac",
+    "rcb_interreg"
 ]]
 
 X = add_constant(X)
@@ -26,7 +26,9 @@ X = add_constant(X)
 res = pd.Series([variance_inflation_factor(X.values, i) for i in range(X.shape[1])], index=X.columns)
 
 res = res.sort_values(ascending=False)[:8]
-values = np.around(res.values, 2)
 
-values = np.hstack((np.array(res.index).reshape(-1, 1), values.reshape(-1, 1))).T
-layout = go.Layout(autosize=True, margin={'l': 0, 'r': 0, 't': 20, 'b': 0})
+y = X['rcb_interreg']
+
+X = X.drop('rcb_interreg', axis=1)
+
+sm.OLS(y, X).fit().summary()

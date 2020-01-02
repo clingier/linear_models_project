@@ -60,7 +60,7 @@ df.drop(['DataExtractDt', 'Laterality', 'SUBJECTID', 'HR_HER2_STATUS'],
     inplace=True)
 
 #Drop ethnic variables
-df.drop(['caucasian', 'af_american', 'pac_islander', 'asian'], axis=1, inplace=True)
+df.drop(['caucasian', 'af_american', 'pac_islander', 'asian', 'race_id'], axis=1, inplace=True)
 
 #Replace hr with hr_not_er
 df['hr_not_er'] = df['hr'] - df['er']
@@ -84,9 +84,9 @@ df.drop(['survstat', 'rfs_ind'], axis = 1, inplace=True)
 df.drop(['hr_her_cat'], axis=1, inplace=True)
 
 #Drop mri_dac and mri_presurg
-df.drop(['mri_dac', 'mri_presurg'], axis=1)
+df.drop(['mri_dac', 'mri_presurg'], axis=1, inplace=True)
 
-#Add rcb_interreg
+#Add rcb_baseline
 
 df['rcb_interreg'] = df.rcb * df.mri_interreg
 

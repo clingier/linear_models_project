@@ -1,7 +1,7 @@
 import statsmodels.api as sm
 import numpy as np
 import pandas as pd
-
+from sklearn.preprocessing import scale
 import plotly.graph_objs as go
 
 df = pd.read_csv('clean_data.csv', index_col=[0])
@@ -9,16 +9,13 @@ df = pd.read_csv('clean_data.csv', index_col=[0])
 X = df[[
     "her2",
     "bilateral",
-    "mri_baseline",
-    "mri_dac",
-    "mri_interreg",
-    "mri_presurg",
-    "rcb",
-    "triple_neg",
+    "hr_p_her2_neg",
     "hr_not_er",
+    "del_dac",
+    "rcb_interreg"
 ]]
 
-# X = sm.add_constant(X)
+X = sm.add_constant(X)
 
 y = df.lrfs
 

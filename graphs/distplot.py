@@ -6,10 +6,8 @@ import numpy as np
 
 df = pd.read_csv('clean_data.csv', index_col=[0])
 
-df['rcb_interreg'] = (df.rcb * df.mri_interreg)
 
-
-x = df.rcb_interreg
+x = df.rcb_baseline
 y = df.lrfs
 
 fig = go.Figure()
@@ -69,4 +67,4 @@ fig.update_layout(
 
 fig.show()
 
-fig.write_image('images/2d_box_plot.pdf2')
+fig.write_image('images/2d_box_plot.pdf')
