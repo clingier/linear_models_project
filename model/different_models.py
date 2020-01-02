@@ -9,4 +9,3 @@ df['lrfs'] = np.log(df.rfs)
 model = sm.OLS(df['lrfs'], df.drop(['lrfs'], axis=1)).fit()
 
 print(model.history)
-

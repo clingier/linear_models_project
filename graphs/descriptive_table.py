@@ -45,4 +45,4 @@ fig = go.Figure(layout=layout, data=[go.Table(
 #     'yanchor': 'top'
 #   },
 # )
-fig.write_image("images/table1.png")
+fig.write_image("images/table1.pdf")

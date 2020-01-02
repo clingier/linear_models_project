@@ -33,4 +33,4 @@ fig.update_layout(
     showlegend=False
 )
 
-fig.show()
+fig.write_image('images/scatter1.pdf')
